@@ -722,8 +722,6 @@ func GetInitialize(w http.ResponseWriter, r *http.Request) {
 	// add sql
 	db.Exec("alter table relations add index bakusoku_index_one(one)")
 	db.Exec("alter table relations add index bakusoku_index_another(another)")
-	db.Exec("alter table footprints add index bakusoku_index_user_id(user_id)")
-	db.Exec("alter table footprints add index bakusoku_index_created_at(created_at)")
 }
 
 func main() {
