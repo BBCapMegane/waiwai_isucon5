@@ -718,6 +718,12 @@ func GetInitialize(w http.ResponseWriter, r *http.Request) {
 	db.Exec("DELETE FROM footprints WHERE id > 500000")
 	db.Exec("DELETE FROM entries WHERE id > 500000")
 	db.Exec("DELETE FROM comments WHERE id > 1500000")
+
+	// add sql
+	db.Exec("alter table relations add index bakusoku_index_one(one)")
+	db.Exec("alter table relations add index bakusoku_index_another(another)")
+	db.Exec("alter table footprints add index bakusoku_index_user_id(user_id)")
+	db.Exec("alter table footprints add index bakusoku_index_created_at(created_at)")
 }
 
 func main() {
@@ -728,10 +734,6 @@ func main() {
 	portstr := os.Getenv("ISUCON5_DB_PORT")
 	if portstr == "" {
 		portstr = "3306"
-	}
-	port, err := strconv.Atoi(portstr)
-	if err != nil {
-		log.Fatalf("Failed to read DB port number from an environment variable ISUCON5_DB_PORT.\nError: %s", err.Error())
 	}
 	user := os.Getenv("ISUCON5_DB_USER")
 	if user == "" {
@@ -747,7 +749,7 @@ func main() {
 		ssecret = "beermoris"
 	}
 
-	db, err := sql.Open("mysql", user+":"+password+"@tcp("+host+":"+strconv.Itoa(port)+")/"+dbname+"?loc=Local&parseTime=true")
+	db, err := sql.Open("mysql", user+":"+password+"@unix(/var/run/mysqld/mysqld.sock)/"+dbname+"?loc=Local&parseTime=true")
 	if err != nil {
 		log.Fatalf("Failed to connect to DB: %s.", err.Error())
 	}
