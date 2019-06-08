@@ -717,6 +717,11 @@ func GetInitialize(w http.ResponseWriter, r *http.Request) {
 	db.Exec("DELETE FROM footprints WHERE id > 500000")
 	db.Exec("DELETE FROM entries WHERE id > 500000")
 	db.Exec("DELETE FROM comments WHERE id > 1500000")
+
+
+	// add sql
+	db.Exec("alter table relations add index bakusoku_index_one(one)")
+	db.Exec("alter table relations add index bakusoku_index_another(another)")
 }
 
 func main() {
