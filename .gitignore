@@ -12,4 +12,5 @@
 .ssh
 .viminfo
 .xbuild
+./go/src/github.com
 
