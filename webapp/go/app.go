@@ -753,6 +753,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to read DB port number from an environment variable ISUCON5_DB_PORT.\nError: %s", err.Error())
 	}
+	f, err := os.OpenFile("golog", os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
 
 	db, err = sql.Open("mysql", user+":"+password+"@unix(/var/run/mysqld/mysqld.sock)/"+dbname+"?loc=Local&parseTime=true")
 	if err != nil {
@@ -789,6 +790,11 @@ func main() {
 	r.HandleFunc("/", myHandler(GetIndex))
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("../static")))
 	log.Fatal(http.ListenAndServe(":8080", r))
+
+	defer f.Close()
+
+	log.SetOutput(f)
+
 }
 
 func checkErr(err error) {
