@@ -13,8 +13,3 @@ compose-rm:
 	$(DOCKER_COMPOSE) rm
 
 compose-destroy:compose-stop compose-rm
-
-.PHONY: go-get
-
-go-get:
-	$(GO) get 
