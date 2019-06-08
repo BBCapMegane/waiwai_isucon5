@@ -755,7 +755,7 @@ func main() {
 	}
 	f, err := os.OpenFile("golog", os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
 
-	db, err := sql.Open("mysql", user+":"+password+"@unix(/var/run/mysqld/mysqld.sock)/"+dbname+"?loc=Local&parseTime=true")
+	db, err = sql.Open("mysql", user+":"+password+"@unix(/var/run/mysqld/mysqld.sock)/"+dbname+"?loc=Local&parseTime=true")
 	if err != nil {
 		log.Fatalf("Failed to connect to DB: %s.", err.Error())
 	}
