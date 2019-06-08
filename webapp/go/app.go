@@ -729,10 +729,6 @@ func main() {
 	if portstr == "" {
 		portstr = "3306"
 	}
-	port, err := strconv.Atoi(portstr)
-	if err != nil {
-		log.Fatalf("Failed to read DB port number from an environment variable ISUCON5_DB_PORT.\nError: %s", err.Error())
-	}
 	user := os.Getenv("ISUCON5_DB_USER")
 	if user == "" {
 		user = "root"
