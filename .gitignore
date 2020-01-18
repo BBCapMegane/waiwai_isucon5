@@ -12,4 +12,5 @@
 .ssh
 .viminfo
 .xbuild
-
+.gitconfig
+webapp/go/app
